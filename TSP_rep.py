@@ -4,6 +4,8 @@ import math
 import numpy as np
 import geopy.distance
 import csv
+import pickle
+import os
 
 """
  Euclidian distance operator. A and B, represented by tuples of coordinates, must belong to the same euclidean space.
@@ -57,21 +59,61 @@ class TSP_Instance:
      Args:
          'file_path': file containing ...
     """
-    def __init__( self, file_path, coord_columns, name_columns ):
+    def __init__( self ):
+        self.initialized = False
+        
+    def read_from_csv( self, file_path, coord_columns, name_columns, skip_header=True ):
         self.cities_coordinates = []
         self.cities_names = []
         
         with open( file_path ) as file:
             reader = csv.reader( file )
-            next(reader)
+            
+            if skip_header:
+                next(reader)
+                
             for row in reader:
                 self.cities_coordinates.append(tuple( [ float(row[index]) for index in coord_columns ] ))
                 self.cities_names.append(tuple( [ row[index] for index in name_columns ] ))
                     
 
         self.matrix = generate_distance_matrix( self.cities_coordinates, geo_distance )
+        self.initialized = True
         
-                    
+    """
+     Stores the problem instance (matrix included) in a binary file.
+    """
+    def export_to_binfiles( self, folder_path ):
+        if not self.initialized:
+            raise RuntimeError( "export_to_binfile() : trying to export tsp instance data without previous initialization" )
+            
+        with open( os.path.join(folder_path,"cities.bin"), 'wb' ) as file:
+            pickle.dump( [self.cities_coordinates, self.cities_names], file )
+            
+        with open( os.path.join(folder_path,"matrix.bin"), 'wb' ) as file:
+            np.save( file, self.matrix )
+        
+    """
+     TODO
+    """
+    def import_from_binfile( self, folder_path ):
+        
+        with open( os.path.join(folder_path,"cities.bin"), 'rb' ) as file:
+            lst = pickle.load( file )
+            
+            if len(lst)!=2:
+                raise RuntimeError( "import_from_binfile() : cities.bin doesn't follow a valid file representation" )
+                
+            self.cities_coordinates, self.cities_names = lst[0], lst[1]
+            
+        with open( os.path.join(folder_path,"matrix.bin"), 'rb' ) as file:
+            self.matrix = np.load( file )
+            
+            if len(self.matrix.shape)!=2 or len(self.cities_coordinates)!=self.matrix.shape[0] or self.matrix.shape[0]!=self.matrix.shape[1]:
+                raise RuntimeError( "import_from_binfile() : matrix.bin doesn't follow a valid file representation" )
+        
+        self.initialized = True
+
     """
      Computes the total distance of a solution.
     """

@@ -29,3 +29,10 @@ def nearest_neighbor( instance ):
         
     return solution
         
+
+"""
+ TODO
+"""
+def kOpt( instance, k=1, initial_sol=[] ):
+    print("d")
+    

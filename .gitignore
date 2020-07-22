@@ -1,2 +1,4 @@
 __pycache__/
 test.py
+samples/*/cities.bin
+samples/*/matrix.bin
