@@ -16,6 +16,12 @@ Methods for solution visualization can be found on 'visualization.py'.
 
 ### Greedy
 
+* Nearest insertion
+
+* Farthest insertion
+
+### Local Search
+
 * k-Opt
 
 ### Genetic Algorithms
