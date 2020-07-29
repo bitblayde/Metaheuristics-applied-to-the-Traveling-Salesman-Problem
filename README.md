@@ -28,11 +28,11 @@ Methods for solution visualization can be found on 'visualization.py'.
 
 ### Approximation Algorithms
 
-* Christofides
+* Christofides algorithm ([Christofides,1976])
 
 ### Dynamic programming
 
-* Held–Karp
+* Held–Karp ([Bellman, 1962], [Held & Karp,1962])
 
 
 
