@@ -2,7 +2,9 @@
 
 The focus of this project is the implementation of different algorithms for the TSP in Python in it's symmetric version (although incorporating support for non-symmetric version when possible), with the goal of gaining an empirical understanding of the differences in performance between different families of algorithms and techniques. The results will help us deciding which algorithm to implement in a better performing language (e.g. C/C++ or Rust).
 
-Different problem samples are adjo
+Different problem samples with varying sizes are available in 'samples' folder, involving different subsets of spanish cities, although any problem specified by a set of geographical points (which may or not contain altitude coordinate) can be loaded via csv files. For more details check instructions available in 'TSP_rep'.
+
+Methods for solution visualization can be found on 'visualization.py'.
 
 ## Implemented algorithms (so far)
 
@@ -16,7 +18,7 @@ Different problem samples are adjo
 
 * k-Opt
 
-### Genectic Algorithms
+### Genetic Algorithms
 
 * Traditional generational approach (based on [Holland, 1975], but adding any modifications shown in more recent literature to increase performance).
 
@@ -28,7 +30,9 @@ Different problem samples are adjo
 
 * Christofides
 
+### Dynamic programming
 
+* Held–Karp
 
 
 
