@@ -55,13 +55,16 @@ def generate_distance_matrix( points, distance_operator, is_symmetric=True ):
 """
 class TSP_Instance:
     
-    """
-     Args:
-         'file_path': file containing ...
-    """
     def __init__( self ):
         self.initialized = False
-        
+    
+    """
+     Args:
+         'file_path': csv file containing problem coordinates
+         'coord_columns': columns of the csv representing coordinates. Order matters. List format: [latitude_col, longitude_col (, altitude_col)].
+         'name_columns': columns of the csv representing names of cities. Order specifies appending sequence. For example: [ (city_name_col) (, state_col) (, country_col) ].
+         'skip_header' : wether csv files has attribute header or not.
+    """    
     def read_from_csv( self, file_path, coord_columns, name_columns, skip_header=True ):
         self.cities_coordinates = []
         self.cities_names = []
@@ -81,7 +84,7 @@ class TSP_Instance:
         self.initialized = True
         
     """
-     TODO
+     Saves problem instance in 'folder_path', generating files 'cities.bin' (coordinates and names) and 'matrix.bin' (distance matrix).
     """
     def export_to_binfiles( self, folder_path ):
         if not self.initialized:
@@ -94,7 +97,8 @@ class TSP_Instance:
             np.save( file, self.matrix )
         
     """
-     TODO
+     This method allows loading a problem instance saved with 'export_to_binfiles', skipping the expensive distance computations associated with a direct csv load.
+     'folder_path' must contain 'cities.bin' and 'matrix.bin' files, both belonging to the same problem.
     """
     def import_from_binfile( self, folder_path ):
         
@@ -122,7 +126,7 @@ class TSP_Instance:
     
     """
       Checks if passed solution constitutes a valid permutation of all unique integers between 0 and n-1, with n
-      being problem size (number of cities)
+      being problem size (number of cities).
     """
     def is_solution_valid( self, solution ):
         return len(solution) == self.matrix.shape[0] and min(solution) == 0 and max(solution) == self.matrix.shape[0]-1 and len(set(solution)) == len(solution)
