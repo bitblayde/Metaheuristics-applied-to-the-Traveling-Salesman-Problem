@@ -81,7 +81,7 @@ class TSP_Instance:
         self.initialized = True
         
     """
-     Stores the problem instance (matrix included) in a binary file.
+     TODO
     """
     def export_to_binfiles( self, folder_path ):
         if not self.initialized:

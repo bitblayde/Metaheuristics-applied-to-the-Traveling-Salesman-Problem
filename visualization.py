@@ -22,7 +22,7 @@ def geo_visualization( instance, solution ):
     if (max_longitude - min_longitude)%360 > (min_longitude - max_longitude)%360:
         min_longitude, max_longitude = max_longitude, min_longitude
         
-    print((max_latitude,max_longitude), (min_latitude,min_longitude))
+    #print((max_latitude,max_longitude), (min_latitude,min_longitude))
     
     buffer_latitude_offset = abs(max_latitude - min_latitude)*0.15
     buffer_longitude_offset = abs(max_longitude - min_longitude)*0.15
