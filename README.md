@@ -40,5 +40,6 @@ Methods for solution visualization can be found on 'visualization.py'.
 
 * Held–Karp ([Bellman, 1962], [Held & Karp,1962])
 
+### Population based algorithm 
 
-
+* The Ant Colony System ([Marco Dorigo, 1992])
