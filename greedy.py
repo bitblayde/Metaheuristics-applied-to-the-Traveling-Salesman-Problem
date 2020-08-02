@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-
-
+from itertools import combinations
 
 """
  Generates a nearest neighbor solution for a given instance. Starting city in computed solution is always '0'.
@@ -31,8 +30,21 @@ def nearest_neighbor( instance ):
         
 
 """
- TODO
+ Selects the best solution among the ones resulting from all possible reconnections of a circuit where edges in 'edges' list have been removed, with k>=2.
+ An edge 'n' in list 'edges' denotes the removal of the edge connecting the n-th and (n+1)-th vertex of 'initial_sol'.
 """
-def kOpt( instance, k=1, initial_sol=[] ):
-    print("d")
+def kOpt( instance, initial_sol, edges ):
+    edges.sort()
+    distances = [ instance.evaluate_solution( initial_sol[edges[i]:edges[(i+1)%len(edges)]] ) for i in range(len(edges)) ]
+    print(distances)
+    total = sum(distances) + sum( [ instance.matrix[initial_sol[e],initial_sol[(e+1)%instance.problem_size()]] for e in edges ] )
+    print( total )
+    print( instance.evaluate_solution( initial_sol ) )
+    
+def rand_kOpt( instance, initial_sol, k ):
+    i = 0
+    for comb in combinations( initial_sol, k ):
+        i+=1
+    print( i )
+        
     
